@@ -1,0 +1,388 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: FVT_ECU Thermal_Management_System_ECU VIC eBTM
+VAL_TABLE_ OperatingStatus 3 "Not Available" 2 "Not Operable" 1 "Derated Operation" 0 "Normal Operation" ;
+VAL_TABLE_ ServiceIndicator 3 "Not Available" 2 "Reserved" 1 "Service Required" 0 "Service Not Required" ;
+VAL_TABLE_ CommandStatus 3 "Not Available" 2 "Default Command" 1 "External Command" 0 "Internal Command" ;
+VAL_TABLE_ StatusReasonLegacy 12 "Operating at Max Control Effort" 11 "Operating at Amp Limit" 10 "Unused" 9 "Over-Temp Protection Shutdown" 8 "Unused" 7 "Under-Voltage Protection Shutdn" 6 "Over Voltage Protection Shutdown" 5 "Unused" 4 "Unable to Start" 3 "Unused" 2 "Unused" 1 "Unused" 0 "OK/ Normal Operation" ;
+VAL_TABLE_ StatusReason 6 "Speed Limit due to max cap" 5 "Speed Limit due to Amp Limit" 4 "Over-Temp Protection Shutdown" 3 "Under-Voltage Protection Shutdwn" 2 "Over-Voltage Protection Shutdown" 1 "Unable to Start" 0 "Normal Operation" ;
+VAL_TABLE_ PowerHold 3 "Not Used" 2 "Reserved" 1 "Power On" 0 "Power Off" ;
+VAL_TABLE_ OnOffDir 3 "Not Used" 2 "Motor On: Reverse" 1 "Motor On: Normal/Default Dir" 0 "Motor Off" ;
+VAL_TABLE_ PMP_Sts 15 "Status unavailable" 14 "Reserved" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Under current" 9 "Over temperature" 8 "Pump not at target speed" 7 "Under voltage" 6 "Over voltage" 5 "Over current" 4 "Pump fail" 3 "Pump spin-down" 2 "Pump spin-up" 1 "Pump stalled" 0 "Pump ok" ;
+VAL_TABLE_ PMP_Power_Hold 3 "Not Used" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_TABLE_ PMP_Run_Stop 3 "Invalid" 2 "Reserved" 1 "Pump Run" 0 "Pump Stop" ;
+VAL_TABLE_ ThermMngtSysHeatrSts 3 "Not Available" 2 "Error" 1 "Heater On" 0 "Heater Off" ;
+VAL_TABLE_ ThermMngtSysHVILSts 3 "Not Available" 2 "Error" 1 "HVIL Open" 0 "HVIL Closed" ;
+VAL_TABLE_ ThermMngtSysCooltLvl 3 "Not Available" 2 "Error" 1 "Coolant Level is sufficient" 0 "Coolant Level is not sufficient" ;
+VAL_TABLE_ ThermManagSysMode_table 15 "Not Available" 14 "Faulted" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Reserved" 9 "Reserved" 8 "Reserved" 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Drying" 3 "Heating" 2 "Cooling" 1 "Circulating" 0 "Off" ;
+VAL_TABLE_ HVESS_Total_Accumulated_Charge 1 "100 Ah/bit" 0 "Description for the value '0x0'" ;
+VAL_TABLE_ HVESS_Total_Energy_Throughput 1 "100 Watt-hour per bit" 0 "Description for the value '0x0'" ;
+VAL_TABLE_ HVESS_State_of_Health 0 "0.4% per bit" ;
+VAL_TABLE_ HVBLSRCR 3 "11b = Don't care/take no action" 2 "10b = Reserved" 1 "01b = Connection Requested" 0 "00b = Connection not Requested" ;
+VAL_TABLE_ HVBHSRCR 3 "11b = Don't care/take no action" 2 "10b = Reserved" 1 "01b = Connection Requested" 0 "00b = Connection not Requested" ;
+VAL_TABLE_ HOC 3 "11b = Don't care/Take no action" 2 "10b = Error" 1 "01b = Consent given" 0 "00b = Consent revoked" ;
+VAL_TABLE_ HEICC 3 "11b = Don't care/Take no action" 2 "10b = Reserved" 1 "01b = Enable charging" 0 "00b = Disable charging" ;
+VAL_TABLE_ HCBC 3 "11b = Don't care/Take no action" 2 "10b = Reserved" 1 "01b = Cell Balancing requested" 0 "00b = Cell Balancing not req" ;
+VAL_TABLE_ HVBPITC 3 "11b = Don't care/Take no action" 2 "10b = Inhibit Passive Iso Test" 1 "01b = Passive Iso Test req" 0 "00b = Passive Iso Test not req" ;
+VAL_TABLE_ HVBAITC 3 "11b = Don't care/Take no action" 2 "10b = Inhibit Active Iso Test" 1 "01b = Active Iso Test request" 0 "00b = Active Iso Test not req" ;
+VAL_TABLE_ HPDM 3 "11b = Don't care/Take no action" 2 "10b = Execute emergency power-dn" 1 "01b = Execute normal power-down" 0 "00b = Power-down not requested" ;
+VAL_TABLE_ HVBCC 3 "11b = Don't care/Take no action" 2 "10b = Emgancy contactor cls req" 1 "01b = Close Contactor" 0 "00b = Open Contactor" ;
+VAL_TABLE_ PropB_C0 15 "1111b = Info not available (default)" 11 "1011b = Granted but error" 10 "1010b = Granted" 2 "10b = Denied permanently" 1 "01b = Denied until restart" 0 "00b = Denied due to initialization" ;
+VAL_TABLE_ PropB_C1_ErrLvl 7 "111b = Open contactors immediately and lock" 6 "110b = Open contactors immediately" 5 "101b = Open contactors normal" 4 "100b = Open contactors with time limit" 3 "11b = Open contactors with speed limit" 2 "10b = Limp Home with limited power" 1 "01b = Internal information" 0 "00b = System is ok" ;
+VAL_TABLE_ PropB_C1_ThermEveStsCellT 3 "11b = info not available (default)" 2 "10b = crit. temp. warn. limit exceeded" 1 "01b = temp. warn. limit exceeded" 0 "00b = temperature ok" ;
+VAL_TABLE_ S1_ES_HV_REQ 7 "111b = info not available (default)" 6 "110b = disconnect DC char" 5 "101b = connect f�r DC char" 4 "100b = prepair for DC char" 3 "11b = connect for AC char" 2 "10b = connect for driving" 1 "01b = emergency disconnect" 0 "00b = disconnect" ;
+VAL_TABLE_ PropB_A1_LOCK_ACTIVATED 3 "11b = Not available" 2 "10b = Lock is activated by ESCU" 1 "01b = Lock is activated by HTCU" 0 "00b = Lock is inactive" ;
+VAL_TABLE_ PropB_A1_STATE_ES_RELAY 7 "111b = Not available" 6 "110b = Error" 5 "101b = reserved" 4 "100b = Main Relays opening" 3 "11b = Main Relays closed" 2 "10b = All Es-Relays closed" 1 "01b = PreCharge-Relais closed" 0 "00b = All Es-Relays open" ;
+VAL_TABLE_ Control_Byte_TP_CM 16 "RTS" 17 "CTS" 19 "EoMA" 20 "ERTS" 21 "ECTS" 22 "EDPO" 23 "EEoMACK" 24 "EAbort" 32 "BAM" 255 "Abort" ;
+VAL_TABLE_ sna_8_bit 255 "not available" ;
+VAL_TABLE_ READY_WARN_FAULT_BLOCK 3 "BLOCKED" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_TABLE_ READY_WARN_FAULT 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_TABLE_ fault_flag 1 "FAULT" 0 "NO_ERROR" ;
+VAL_TABLE_ hyper_sts 4 "BLOCKED" 3 "ERROR" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_TABLE_ DCDC_STS 3 "Error" 2 "Fault" 1 "Warning" 0 "Ready" ;
+VAL_TABLE_ SYSEM_CONFIG 3 "ERROR" 2 "CONFIG_800V_6BP" 1 "CONFIG_400V_6BP" 0 "CONFIG_400V_2BP" ;
+VAL_TABLE_ detected_protocoll 1 "J1939" 0 "EXTENDED_IDS" ;
+VAL_TABLE_ coolant 1 "COOLANT LEVEL NOK" 0 "COOLANT LEVEL OK" ;
+VAL_TABLE_ available 1 "AVAILABLE" 0 "NOT AVAILABLE" ;
+VAL_TABLE_ ebtm_stm 6 "ENUM_MAX" 5 "WAIT_SLEEP" 4 "COOLING" 3 "HEATING" 2 "POSTRUN" 1 "PRERUN" 0 "IDLE" ;
+VAL_TABLE_ error_flag 1 "ERROR" 0 "NO_ERROR" ;
+
+
+BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
+ SG_ dcdc_output_voltage : 0|16@1+ (0.05,0) [0|3276.75] "" Vector__XXX
+ SG_ dcdc_output_current : 0|16@1+ (0.05,0) [0|3276.75] "" Vector__XXX
+ SG_ dcdc_input_voltage : 0|16@1+ (0.05,0) [0|3276.75] "" Vector__XXX
+ SG_ dcdc_cooling_plate_temp : 0|16@1+ (0.01,0) [0|655.35] "" Vector__XXX
+ SG_ DataId : 0|8@1+ (1,0) [0|255] "State" Vector__XXX
+ SG_ SetOutputVoltage : 0|16@1+ (0.05,0) [0|3276.75] "V" Vector__XXX
+ SG_ SetOutputCurrent : 0|16@1+ (0.05,0) [0|3276.75] "A" Vector__XXX
+ SG_ RemoteShutdownReq : 0|8@1+ (1,0) [0|255] "State" Vector__XXX
+ SG_ Flash_Red_Stop_Lamp : 0|2@1+ (1,0) [0|3] "bit" Vector__XXX
+ SG_ Flash_Protect_Lamp : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Flash_Malfunction_Indicator_Lamp : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Flash_Amber_Warning_Lamp : 0|2@1+ (1,0) [0|3] "bit" Vector__XXX
+ SG_ Malfunction_Indicator_Lamp : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Protect_Lamp : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Amber_Warning_Lamp : 0|2@1+ (1,0) [0|3] "bit" Vector__XXX
+ SG_ Red_Stop_Lamp : 0|2@1+ (1,0) [0|3] "bit" Vector__XXX
+ SG_ Suspect_Parameter_Number : 0|19@1+ (1,0) [0|524287] "Status" Vector__XXX
+ SG_ Failure_Mode_Identifier : 0|5@1+ (1,0) [0|31] "Status" Vector__XXX
+ SG_ Occurrence_Count : 0|7@1+ (1,0) [0|127] "Status" Vector__XXX
+ SG_ SPN_Conversion_Method : 0|1@1+ (1,0) [0|1] "Status" Vector__XXX
+ SG_ SLI_Input_Power : 0|16@1+ (0.5,0) [0|65535] "W" Vector__XXX
+ SG_ High_Voltage_Input_Power : 0|16@1+ (0.5,0) [0|32767.5] "W" Vector__XXX
+ SG_ Compressor_Speed : 0|8@1+ (32,0) [0|8160] "rpm" Vector__XXX
+ SG_ Heater_Status : 0|3@1+ (1,0) [0|7] "bit" Vector__XXX
+ SG_ Cooling_system_readiness : 0|4@1+ (1,0) [0|15] "State" Vector__XXX
+ SG_ Cooling_system_state : 0|4@1+ (1,0) [0|15] "State" Vector__XXX
+ SG_ Pump1ActualSpeedPct : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ FanActualSpeedPct : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ HeaterTemperature : 0|8@1+ (1,-40) [-40|215] "C" Vector__XXX
+ SG_ AmbientTemperature : 0|8@1+ (0.5,-40) [-40|87.5] "C" Vector__XXX
+ SG_ ValveState : 0|2@1+ (1,0) [0|3] "State" Vector__XXX
+ SG_ ThermalSystemEnable : 0|2@1+ (1,0) [0|3] "State" Vector__XXX
+ SG_ CoolingAllowed : 0|2@1+ (1,0) [0|3] "State" Vector__XXX
+ SG_ HeatingAllowed : 0|2@1+ (1,0) [0|3] "State" Vector__XXX
+ SG_ ServiceModeEnable : 0|2@1+ (1,0) [0|3] "State" Vector__XXX
+ SG_ SetpointCoolingControlTemperatur : 0|8@1+ (0.2,0) [0|51] "C" Vector__XXX
+ SG_ SetpointHeaterControlTemperature : 0|8@1+ (0.26,-15) [-15|51.3] "C" Vector__XXX
+ SG_ MaxAllowedTemperatureGradient : 0|8@1+ (0.08,0) [0|20.4] "C" Vector__XXX
+ SG_ MeasuredControlTemperature : 0|12@1+ (0.067,-40) [-40|234.365] "C" Vector__XXX
+ SG_ MeasuredTemperatureGradient : 0|12@1+ (0.005,0) [0|20.475] "C" Vector__XXX
+ SG_ PumpControlCommand : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ CompressorControlCommand : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ HeaterControlCommand : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ Fan_Control_Command : 0|8@1+ (0.4,0) [0|102] "%" Vector__XXX
+ SG_ ValveControlCommand : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ HVES1_Bus_Voltage : 0|16@1+ (0.05,0) [0|3276.75] "V" Vector__XXX
+ SG_ HVES1_Ignition_Voltage : 0|16@1+ (0.01,0) [0|655.35] "V" Vector__XXX
+ SG_ HVES1_Intake_Coolant_Temperature : 0|8@1+ (1,-40) [-40|215] "C" Vector__XXX
+ SG_ HVES1_Outlet_Coolant_Temperature : 0|8@1+ (1,-40) [-40|215] "C" Vector__XXX
+ SG_ HVES1_Electronics_Temperature : 0|8@1+ (1,-40) [-40|215] "C" Vector__XXX
+
+BO_ 2566906938 EbtmStatus3: 8 eBTM
+ SG_ POWER_LIMIT_CALC : 32|16@1+ (1,0) [0|65535] "W"  FVT_ECU
+ SG_ POWER_CONS_HYPER : 16|16@1+ (1,0) [0|65535] "W"  FVT_ECU
+ SG_ POWER_CONS_HVH : 0|16@1+ (1,0) [0|65535] "W"  FVT_ECU
+
+BO_ 2566906682 EbtmStatus2: 8 eBTM
+ SG_ DETECTED_CONFIGURATION : 4|2@1+ (1,0) [0|1] "0"  FVT_ECU
+ SG_ DETECTED_CAN_PROTOCOL : 9|1@1+ (1,0) [0|1] "0"  FVT_ECU
+ SG_ HEATING_AVAILBLE : 8|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ EBTM_STM : 0|4@1+ (1,0) [0|15] ""  FVT_ECU
+ SG_ COOLING_AVAILBLE : 7|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ COOLANT_TEMP : 48|8@1- (1,0) [-128|127] "�C"  FVT_ECU
+ SG_ PUMP_INTERNAL_SPEED : 40|8@1+ (1,0) [0|255] "%"  FVT_ECU
+ SG_ PUMP_EXTERNAL_SPEED : 32|8@1+ (1,0) [0|255] "%"  FVT_ECU
+ SG_ FAN_2_SPEED : 24|8@1+ (1,0) [0|255] "%"  FVT_ECU
+ SG_ FAN_1_SPEED : 16|8@1+ (1,0) [0|255] "%"  FVT_ECU
+
+BO_ 2566906426 EbtmStatus1: 8 eBTM
+ SG_ eBTM_ECU_Error : 31|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ STC_sensor_status : 30|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_WP_INT_Status : 8|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_WP_EXT_Status : 11|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_VDD12_UnderVoltage : 27|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_VDD12_OverVoltage : 28|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LV_UnderVoltage : 25|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LV_OverVoltage : 26|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LIN_WP_INT_Timeout : 10|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LIN_HVH_Timeout : 16|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LIN_FAN2_Timeout : 22|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_LIN_FAN1_Timeout : 19|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_HVH_Status : 14|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_HV_UnderVoltage : 23|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_HV_OverVoltage : 24|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_FAN2_Status : 20|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_FAN1_Status : 17|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_DCDC_Status : 4|2@1+ (1,0) [0|3] ""  FVT_ECU
+ SG_ eBTM_CAN_WP_EXT_Timeout : 13|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_CAN_Hyper_Timeout : 3|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_CAN_DCDC_Timeout : 6|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ Coolant_Level_Status : 29|1@1+ (1,0) [0|1] ""  FVT_ECU
+ SG_ eBTM_Hyper_Status : 0|3@1+ (1,0) [0|7] ""  FVT_ECU
+
+BO_ 2566898419 TmsCommand: 8 FVT_ECU
+ SG_ TSetPoint_J1993 : 20|11@1+ (0.25,-256) [-256|255.75] "�C"  Thermal_Management_System_ECU
+ SG_ TAct_J1993 : 9|11@1+ (0.25,-256) [-256|255.75] "�C"  Thermal_Management_System_ECU
+ SG_ EnaCoolgHeatgBatFlag_J1993 : 7|2@1+ (1,0) [0|3] ""  Thermal_Management_System_ECU
+ SG_ PackNameThermReq1_J1993 : 2|5@1+ (1,0) [0|31] ""  Thermal_Management_System_ECU
+ SG_ ThermSysStrtReq1_J1993 : 0|2@1+ (1,0) [0|3] ""  Thermal_Management_System_ECU
+
+BO_ 2364606778 TmsStatus: 8 Thermal_Management_System_ECU
+ SG_ ThermMngtSysCooltLvl : 56|2@1+ (1,0) [0|3] ""  FVT_ECU,VIC
+ SG_ ThermMngtSysMode : 52|4@1+ (1,0) [0|15] ""  FVT_ECU,VIC
+ SG_ ThermMngtSysHVILSts : 50|2@1+ (1,0) [0|3] ""  FVT_ECU,VIC
+ SG_ ThermMngtSysHeatrSts : 48|2@1+ (1,0) [0|3] ""  FVT_ECU,VIC
+ SG_ ThermMngtSysRel : 40|8@1+ (0.4,0) [0|100] "%"  FVT_ECU,VIC
+ SG_ ThermMngtSysCmpr : 32|8@1+ (32,0) [0|8000] "rpm"  FVT_ECU,VIC
+ SG_ ThermMngtSysHv : 16|16@1+ (0.5,0) [0|32127.5] "W"  FVT_ECU,VIC
+ SG_ ThermMngtSysSLIInpPwr : 0|16@1+ (0.5,0) [0|32127.5] "W"  FVT_ECU,VIC
+
+
+
+CM_ BO_ 3221225472 "This is a message for not used signals, created by Vector CANdb++ DBC OLE DB Provider.";
+CM_ BO_ 2566906938 "Diagnostic status message of eBTM 2.0";
+CM_ BO_ 2566906682 "Diagnostic status message of eBTM 2.0";
+CM_ BO_ 2566906426 "Diagnostic error message of eBTM 2.0";
+CM_ BO_ 2566898419 "Coolant/heating request for an external thermal management system with setpoint control";
+CM_ SG_ 2566898419 TSetPoint_J1993 "Setpoint temperature for an external thermal management system for pack mentioned in PackNameThermReq1 (multiplexed signal)";
+CM_ SG_ 2566898419 TAct_J1993 "Cell temperature of pack mentioned in PackNameThermReq1 with the highest absolute deviation from the setpoint temperature (multiplexed signal)";
+CM_ SG_ 2566898419 EnaCoolgHeatgBatFlag_J1993 "Request for coolant/heating flow for an external thermal management system with setpoint control from pack mentioned in PackNameThermReq1 (multiplexed signal)";
+CM_ SG_ 2566898419 PackNameThermReq1_J1993 "Battery pack the multiplexed signals in this message refer to (multiplexor signal)";
+CM_ SG_ 2566898419 ThermSysStrtReq1_J1993 "Wakeup request for an external thermal management system with setpoint control";
+CM_ BO_ 2364606778 "Collection of data the High Voltage Energy Storage System Thermal Management System sends to the Hybrid Controller.
+";
+CM_ SG_ 2364606778 ThermMngtSysCooltLvl "Indicates the coolant level in the High Voltage Energy Storage System (or Pack 1 in systems with only one pack) Thermal Management System.
+00b = Coolant Level is not sufficient
+01b = Coolant Level is sufficient
+10b = Error
+11b = Not Available";
+CM_ SG_ 2364606778 ThermMngtSysMode "Indicates the operating mode of the Thermal Management System.The heat transfer medium may be (e.g. liquid or air).  The cooling system may be fans, liquid coolant, or a combination of mediums.";
+CM_ SG_ 2364606778 ThermMngtSysHVILSts "Status of the High Voltage Interlock Loop from the viewpoint of the High Voltage Energy Storage System Thermal Management System 1.
+00b = HVIL Closed
+01b = HVIL Open
+10b = Error
+11b = Not Available";
+CM_ SG_ 2364606778 ThermMngtSysHeatrSts "The state of the High Voltage Energy Storage System (or Pack 1 in systems with only one pack) heater.
+00b = Heater Off
+01b = Heater On
+10b = Error 
+11b = Not Available";
+CM_ SG_ 2364606778 ThermMngtSysRel "When the High Voltage Energy Storage System (or Pack 1 in systems with only one pack) Thermal Management System is equipped with a relative humidity sensor, this is the  measured Relative Humidity";
+CM_ SG_ 2364606778 ThermMngtSysCmpr "When the High Voltage Energy Storage System (or Pack 1 in systems with only one pack) Thermal Management System is equipped with an active cooling system (e.g. air conditioner), this is the Compressor Speed.";
+CM_ SG_ 2364606778 ThermMngtSysHv "This is the high-voltage power consumed by this Thermal Management System (TMS). 
+If there is only one pack, or a single TMS for the entire HVES system, then this represents the total high-voltage power consumed.";
+CM_ SG_ 2364606778 ThermMngtSysSLIInpPwr "This is the low-voltage power consumed by this Thermal Management System (TMS). 
+If there is only one pack, or a single TMS for the entire HVES system, then this represents the total low-voltage power consumed.";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_ SG_  "SigType" ENUM  "Default","Range","RangeSigned","ASCII","Discrete","Control","ReferencePGN","DTC","StringDelimiter","StringLength","StringLengthControl";
+BA_DEF_ BO_  "TpJ1939VarDlc" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","reserved","cyclicIfActive","reserved","reserved","reserved","reserved","reserved","noMsgSendType";
+BA_DEF_ BO_  "GenMsgRequestable" INT 0 1;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 3600000;
+BA_DEF_ BO_  "CanDootDecode" ENUM  "No","Yes";
+BA_DEF_ BO_  "CanDootSimulateBus" INT 0 6;
+BA_DEF_ BO_  "CanDootDecodeBus" INT 0 6;
+BA_DEF_ BO_  "CanDootPaused" ENUM  "No","Yes";
+BA_DEF_ BO_  "CanDootSimulate" ENUM  "No","Yes";
+BA_DEF_ BO_  "CanDootSimulateCycleTime" INT 0 50000;
+BA_DEF_ SG_  "CanDootHidden" ENUM  "No","Yes";
+BA_DEF_ SG_  "CanDootBroadcast" ENUM  "No","Yes";
+BA_DEF_ SG_  "CanDootGroup" ENUM  "None","g1","g2","g3","g4","g5","g6","g7","g8","g9","gA","gB","gC","gD","gE","gF";
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_ SG_  "SPN" INT 0 524287;
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "GenSigILSupport" ENUM  "No","Yes";
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 100000;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 3600000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 1000000;
+BA_DEF_ SG_  "GenSigStartValue" INT 0 2147483647;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "NmJ1939SystemInstance" INT 0 15;
+BA_DEF_ BU_  "NmJ1939System" INT 0 127;
+BA_DEF_ BU_  "NmJ1939ManufacturerCode" INT 0 2047;
+BA_DEF_ BU_  "NmJ1939IndustryGroup" INT 0 7;
+BA_DEF_ BU_  "NmJ1939IdentityNumber" INT 0 2097151;
+BA_DEF_ BU_  "NmJ1939FunctionInstance" INT 0 7;
+BA_DEF_ BU_  "NmJ1939Function" INT 0 255;
+BA_DEF_ BU_  "NmJ1939ECUInstance" INT 0 3;
+BA_DEF_ BU_  "NmJ1939AAC" INT 0 1;
+BA_DEF_ BU_  "NmStationAddress" INT 0 255;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "ProtocolType" "J1939";
+BA_DEF_DEF_  "SigType" "Default";
+BA_DEF_DEF_  "TpJ1939VarDlc" "No";
+BA_DEF_DEF_  "GenMsgSendType" "noMsgSendType";
+BA_DEF_DEF_  "GenMsgRequestable" 1;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "CanDootDecode" "Yes";
+BA_DEF_DEF_  "CanDootSimulateBus" 1;
+BA_DEF_DEF_  "CanDootDecodeBus" 1;
+BA_DEF_DEF_  "CanDootPaused" "No";
+BA_DEF_DEF_  "CanDootSimulate" "No";
+BA_DEF_DEF_  "CanDootSimulateCycleTime" 100;
+BA_DEF_DEF_  "CanDootHidden" "No";
+BA_DEF_DEF_  "CanDootBroadcast" "Yes";
+BA_DEF_DEF_  "CanDootGroup" "None";
+BA_DEF_DEF_  "VFrameFormat" "J1939PG";
+BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "GenSigEVName" "Env@Nodename_@Signame";
+BA_DEF_DEF_  "GenSigILSupport" "Yes";
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "NmJ1939SystemInstance" 0;
+BA_DEF_DEF_  "NmJ1939System" 0;
+BA_DEF_DEF_  "NmJ1939ManufacturerCode" 0;
+BA_DEF_DEF_  "NmJ1939IndustryGroup" 0;
+BA_DEF_DEF_  "NmJ1939IdentityNumber" 0;
+BA_DEF_DEF_  "NmJ1939FunctionInstance" 0;
+BA_DEF_DEF_  "NmJ1939Function" 0;
+BA_DEF_DEF_  "NmJ1939ECUInstance" 0;
+BA_DEF_DEF_  "NmJ1939AAC" 0;
+BA_DEF_DEF_  "NmStationAddress" 254;
+BA_ "DBName" "eBTM";
+BA_ "NmStationAddress" BU_ FVT_ECU 0;
+BA_ "GenMsgCycleTime" BO_ 2566906938 100;
+BA_ "CanDootSimulateCycleTime" BO_ 2566906938 0;
+BA_ "CanDootSimulate" BO_ 2566906938 0;
+BA_ "CanDootDecode" BO_ 2566906938 1;
+BA_ "CanDootDecodeBus" BO_ 2566906938 1;
+BA_ "CanDootSimulateBus" BO_ 2566906938 1;
+BA_ "VFrameFormat" BO_ 2566906938 3;
+BA_ "GenMsgCycleTime" BO_ 2566906682 100;
+BA_ "CanDootSimulateCycleTime" BO_ 2566906682 0;
+BA_ "CanDootSimulate" BO_ 2566906682 0;
+BA_ "CanDootDecode" BO_ 2566906682 1;
+BA_ "CanDootDecodeBus" BO_ 2566906682 1;
+BA_ "CanDootSimulateBus" BO_ 2566906682 1;
+BA_ "VFrameFormat" BO_ 2566906682 3;
+BA_ "GenMsgCycleTime" BO_ 2566906426 100;
+BA_ "CanDootSimulateCycleTime" BO_ 2566906426 0;
+BA_ "CanDootSimulate" BO_ 2566906426 0;
+BA_ "CanDootDecode" BO_ 2566906426 1;
+BA_ "CanDootDecodeBus" BO_ 2566906426 1;
+BA_ "CanDootSimulateBus" BO_ 2566906426 1;
+BA_ "VFrameFormat" BO_ 2566906426 3;
+BA_ "GenMsgCycleTime" BO_ 2566898419 100;
+BA_ "CanDootSimulateCycleTime" BO_ 2566898419 0;
+BA_ "CanDootSimulate" BO_ 2566898419 1;
+BA_ "CanDootDecode" BO_ 2566898419 0;
+BA_ "CanDootSimulateBus" BO_ 2566898419 1;
+BA_ "CanDootDecodeBus" BO_ 2566898419 1;
+BA_ "VFrameFormat" BO_ 2566898419 3;
+BA_ "GenMsgCycleTime" BO_ 2364606778 100;
+BA_ "CanDootSimulate" BO_ 2364606778 0;
+BA_ "CanDootDecode" BO_ 2364606778 1;
+BA_ "CanDootSimulateCycleTime" BO_ 2364606778 0;
+BA_ "CanDootSimulateBus" BO_ 2364606778 1;
+BA_ "CanDootDecodeBus" BO_ 2364606778 1;
+BA_ "VFrameFormat" BO_ 2364606778 3;
+VAL_ 2566906682 DETECTED_CONFIGURATION 3 "CONFIG_ERROR" 2 "CONFIG_800V" 1 "reserved" 0 "CONFIG_400V" ;
+VAL_ 2566906682 DETECTED_CAN_PROTOCOL 1 "J1939" 0 "EXTENDED_IDS" ;
+VAL_ 2566906682 HEATING_AVAILBLE 1 "AVAILABLE" 0 "NOT AVAILABLE" ;
+VAL_ 2566906682 EBTM_STM 10 "MAINTAINANCE MODE" 9 "UNKNOWN" 15 "not available" 8 "BLOCKED" 7 "ERROR" 6 "FAULT" 5 "RECIRCULATION" 4 "WAIT_SLEEP" 3 "COOLING" 2 "HEATING" 1 "PRERUN" 0 "IDLE" ;
+VAL_ 2566906682 COOLING_AVAILBLE 1 "AVAILABLE" 0 "NOT AVAILABLE" ;
+VAL_ 2566906682 COOLANT_TEMP 255 "not available" ;
+VAL_ 2566906426 eBTM_ECU_Error 1 "ERROR" 0 "NO_ERROR" ;
+VAL_ 2566906426 STC_sensor_status 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_WP_INT_Status 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_WP_EXT_Status 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_VDD12_UnderVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_VDD12_OverVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LV_UnderVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LV_OverVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LIN_WP_INT_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LIN_HVH_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LIN_FAN2_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_LIN_FAN1_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_HVH_Status 3 "BLOCKED" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_HV_UnderVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_HV_OverVoltage 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_FAN2_Status 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_FAN1_Status 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_DCDC_Status 3 "reserved" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566906426 eBTM_CAN_WP_EXT_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_CAN_Hyper_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_CAN_DCDC_Timeout 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 Coolant_Level_Status 1 "FAULT" 0 "NO_ERROR" ;
+VAL_ 2566906426 eBTM_Hyper_Status 4 "BLOCKED" 3 "ERROR" 2 "FAULT" 1 "WARNING" 0 "READY" ;
+VAL_ 2566898419 EnaCoolgHeatgBatFlag_J1993 3 "Info not available (default)" 2 "Reserved" 1 "Activate" 0 "Deactivate" ;
+VAL_ 2566898419 PackNameThermReq1_J1993 31 "Info not available" 30 "VIC" 12 " Pack2_6" 11 " Pack2_5" 10 " Pack2_4" 9 " Pack2_3" 8 " Pack2_2" 7 " Pack2_1" 6 " Pack1_7" 5 " Pack1_6" 4 " Pack1_5" 3 " Pack1_4" 2 " Pack1_3" 1 " Pack1_2" 0 " Pack1_1 or Standalone" ;
+VAL_ 2566898419 ThermSysStrtReq1_J1993 3 "Info not available (default)" 2 "Reserved" 1 "Active" 0 "Not active" ;
+VAL_ 2364606778 ThermMngtSysCooltLvl 3 "Not Available" 2 "Error" 1 "Coolant Level is sufficient" 0 "Coolant Level is not sufficient" ;
+VAL_ 2364606778 ThermMngtSysMode 15 "Not Available" 14 "Faulted" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Reserved" 9 "Reserved" 8 "Reserved" 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Drying" 3 "Heating" 2 "Cooling" 1 "Circulating" 0 "Off" ;
+VAL_ 2364606778 ThermMngtSysHVILSts 3 "Not Available" 2 "Error" 1 "HVIL Open" 0 "HVIL Closed" ;
+VAL_ 2364606778 ThermMngtSysHeatrSts 3 "Not Available" 2 "Error" 1 "Heater On" 0 "Heater Off" ;
+
