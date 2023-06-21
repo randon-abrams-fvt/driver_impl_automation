@@ -15,7 +15,6 @@ def check_args():
   
 def main():
   check_args()  
-  db = cantools.database.load_file(sys.argv[1])  
   cc = ConverterClass(sys.argv[1])
   cc.create_header_file() 
   cc.create_source_file() 
