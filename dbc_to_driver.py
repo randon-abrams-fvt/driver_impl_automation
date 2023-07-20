@@ -1,5 +1,4 @@
 import os
-import cantools
 import sys
 from converter_class import ConverterClass
   
