@@ -77,7 +77,7 @@ class {self.driver_name}
     self.header_output_fp.write(f"    }} message_ids;\n\n")
     self.header_output_fp.write(
 f"""\
-    {self.driver_name}(const uint8_t &_channel);
+    {self.driver_name}(const uint32_t &_channel);
     ~{self.driver_name}();
   
     //====================================================  
@@ -119,9 +119,8 @@ f"""\
         
       public:
         {message.name}(
-          const uint32_t &_can_id,
-          const uint8_t &_channel,
-          const uint8_t &_frame_type,
+          const uint32_t &_channel,
+          const can_id_t &_can_id,
           const uint32_t &_cycle_time);
 
         ~{message.name}();
@@ -142,7 +141,7 @@ f"""\
       self.header_output_fp.write(f"""\
         {data_type}{len}_{endian}_t<{pos}> {signal.name.lower()};
 """)
-    self.header_output_fp.write(f"}};\n\n") 
+    self.header_output_fp.write(f"    }}\n\n") 
 
   def header_add_rx_message(self, message):
     inst_name = message.dbc.attributes['CG_MessageInstName'].value
@@ -154,14 +153,13 @@ f"""\
         
       public:
         {message.name}(
-         const uint32_t &_can_id,
-         const uint8_t &_channel,
-         const uint8_t &_frame_type,
-         const uint32_t &_cycle_time);
+         const uint32_t &_channel,
+         const can_id_t &_can_id,
+         const uint32_t &_timeout);
         
         ~{message.name}();
 
-        virtual void receive_handler(const common_lib::can_word_t *data) override;
+        virtual void receive_handler(const common_lib::can_data_t *data) override;
       
       private:
 """)
@@ -177,7 +175,7 @@ f"""\
       self.header_output_fp.write(f"""\
         {data_type}{len}_{endian}_t<{pos}> {signal.name.lower()};
 """)
-    self.header_output_fp.write(f"}};\n\n") 
+    self.header_output_fp.write(f"    }}\n\n") 
 
   def create_header_file(self):
     self.header_add_driver_header()    
@@ -212,11 +210,10 @@ using namespace driver_lib;
     for message in self.sender_message_list:
       self.source_output_fp.write(f"""\
 {self.driver_name}::{message.name}::{message.name}(
-    const uint32_t &_can_id,
-    const uint8_t &_channel,
-    const uint8_t &_frame_type,
+    const uint32_t &_channel,
+    const can_id_t &_can_id,
     const uint32_t &_cycle_time)
-    : CanTxMessage(_can_id, _channel, _frame_type, _cycle_time)
+    : CanTxMessage(_channel, _can_id, _cycle_time)
 {{
 }}
  
@@ -263,11 +260,10 @@ void {self.driver_name}::{message.name}::set_data()
     for message in self.receiver_message_list:
       self.source_output_fp.write(f"""\
 {self.driver_name}::{message.name}::{message.name}(
-    const uint32_t &_can_id,
-    const uint8_t &_channel,
-    const uint8_t &_frame_type,
+    const uint32_t &_channel,
+    const can_id_t &_can_id,
     const uint32_t &_timeout)
-    : CanRxMessage(_can_id, _channel, _frame_type, _timeout)
+    : CanRxMessage(_channel, _can_id, _timeout)
 {{
 }}
         
@@ -297,7 +293,7 @@ f"""\
       inst_name = message.dbc.attributes['CG_MessageInstName'].value
       self.source_output_fp.write(
 f"""\
-void {self.driver_name}::{message.name}::receive_handler(const can_word_t *data)
+void {self.driver_name}::{message.name}::receive_handler(const can_data_t *data)
 {{
 """)
       
@@ -311,12 +307,12 @@ void {self.driver_name}::{message.name}::receive_handler(const can_word_t *data)
     self.source_output_fp.write(
 f"""// =====================================================
 // Device constructor 
-{self.driver_name}::{self.driver_name}(const uint8_t &_channel):\n""")
+{self.driver_name}::{self.driver_name}(const uint32_t &_channel):\n""")
 
     for message in self.sender_message_list:
       inst_name = message.dbc.attributes['CG_MessageInstName'].value
       self.source_output_fp.write(
-f"""      {inst_name}_({inst_name.upper()}_ID, _channel, IO_CAN_EXT_FRAME, _TIMEOUT)""")
+f"""      CanTxMessage(_channel, {inst_name}_({inst_name.upper()}_ID, IO_CAN_EXT_FRAME, _TIMEOUT)""")
       if message == self.sender_message_list[-1] and len(self.receiver_message_list) == 0:
         self.source_output_fp.write("\n")
       else:
@@ -325,7 +321,7 @@ f"""      {inst_name}_({inst_name.upper()}_ID, _channel, IO_CAN_EXT_FRAME, _TIME
     for message in self.receiver_message_list:
       inst_name = message.dbc.attributes['CG_MessageInstName'].value
       self.source_output_fp.write(
-f"""      {inst_name}_({inst_name.upper()}_ID, _channel, IO_CAN_EXT_FRAME, _CYCLE_TIME)""")
+f"""      _channel, {inst_name}_({inst_name.upper()}_ID, IO_CAN_EXT_FRAME, _CYCLE_TIME)""")
       if message == self.receiver_message_list[-1]:
         self.source_output_fp.write("\n")
       else:
@@ -373,6 +369,9 @@ f"""{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} {self.driver
 """)
 
   def create_source_file(self):
+    self.create_device_constructor()
+    self.create_device_destructor()
+    
     self.source_write_header()
 
     self.source_write_tx_contructors()
@@ -382,9 +381,6 @@ f"""{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} {self.driver
     self.source_write_rx_constructors()
     self.source_write_rx_destructors()
     self.source_write_rx_handlers()
-
-    self.create_device_constructor()
-    self.create_device_destructor()
 
     self.source_write_setters()
     self.source_write_getters()
