@@ -35,7 +35,7 @@ class ConverterClass:
         os.makedirs(os.path.dirname(source_file_path), exist_ok=True)
         self.source_output_fp = open(source_file_path,"w")
       except:
-        pint("Unable to create output source file")
+        print("Unable to create output source file")
         exit()
 
       self.sender_message_list = []
@@ -59,9 +59,8 @@ class ConverterClass:
 #ifndef __{self.driver_name}_H_
 #define __{self.driver_name}_H_
 
-#include <can_service.h>
+#include <can_services.h>
 #include <stddef.h>
-#include "J1939/J1939Helper.h"
 
 namespace driver_lib
 {{
@@ -130,13 +129,20 @@ f"""\
         virtual void set_data() override;
       
       private:
-        struct {inst_name}_t
-        {{
 """)
-     
     for signal in message.signals:
-      self.header_output_fp.write(f"          uint32_t  {signal.name} : {signal.length};\n")
-    self.header_output_fp.write(f"       }} data_;\n    }};\n\n") 
+      endian = "le"
+      data_type = "uint"
+      len = signal.length
+      pos = signal.start
+      if signal.byte_order == "big_endian":
+        endian = "be"
+      if signal.is_signed:
+        data_type = "int"
+      self.header_output_fp.write(f"""\
+        {data_type}{len}_{endian}_t<{pos}> {signal.name.lower()};
+""")
+    self.header_output_fp.write(f"}};\n\n") 
 
   def header_add_rx_message(self, message):
     inst_name = message.dbc.attributes['CG_MessageInstName'].value
@@ -158,13 +164,20 @@ f"""\
         virtual void receive_handler(const common_lib::can_word_t *data) override;
       
       private:
-        struct {inst_name}_t
-        {{
 """)
-
     for signal in message.signals:
-      self.header_output_fp.write(f"           uint32_t {signal.name} : {signal.length};\n")
-    self.header_output_fp.write(f"        }} data_;\n    }};\n\n") 
+      endian = "le"
+      data_type = "uint"
+      len = signal.length
+      pos = signal.start
+      if signal.byte_order == "big_endian":
+        endian = "be"
+      if signal.is_signed:
+        data_type = "int"
+      self.header_output_fp.write(f"""\
+        {data_type}{len}_{endian}_t<{pos}> {signal.name.lower()};
+""")
+    self.header_output_fp.write(f"}};\n\n") 
 
   def create_header_file(self):
     self.header_add_driver_header()    
@@ -203,7 +216,7 @@ using namespace driver_lib;
     const uint8_t &_channel,
     const uint8_t &_frame_type,
     const uint32_t &_cycle_time)
-    : CanTxMessage(_can_id, _channel, _frame_type, _cycle_time), data_{{}}
+    : CanTxMessage(_can_id, _channel, _frame_type, _cycle_time)
 {{
 }}
  
@@ -227,18 +240,19 @@ using namespace driver_lib;
     # Add Transmit handler
     self.source_output_fp.write("""\
 // =====================================================
-// Transmit Handlers 
+// TX Handlers 
 """)
     for message in self.sender_message_list:
-        inst_name = message.dbc.attributes['CG_MessageInstName'].value
-        self.source_output_fp.write(f"""\
+      inst_name = message.dbc.attributes['CG_MessageInstName'].value
+      self.source_output_fp.write(f"""\
 void {self.driver_name}::{message.name}::set_data()
 {{
-    {inst_name}_t buffer = data_;
-    memcpy(can_frame.data, &buffer, sizeof({inst_name}_t));
-}}
-        
-""")             
+""")
+      for signal in message.signals:
+        self.source_output_fp.write(f"""\
+    frame.data.load({signal.name.lower()});
+""")
+      self.source_output_fp.write(f"}};\n\n") 
 
   def source_write_rx_constructors(self):
     # Add RX constructors
@@ -253,7 +267,7 @@ void {self.driver_name}::{message.name}::set_data()
     const uint8_t &_channel,
     const uint8_t &_frame_type,
     const uint32_t &_timeout)
-    : CanRxMessage(_can_id, _channel, _frame_type, _timeout), data_{{}}
+    : CanRxMessage(_can_id, _channel, _frame_type, _timeout)
 {{
 }}
         
@@ -277,7 +291,7 @@ f"""\
   def source_write_rx_handlers(self):
     self.source_output_fp.write("""\
 // =====================================================
-// RX handlers 
+// RX Handlers 
 """)
     for message in self.receiver_message_list:
       inst_name = message.dbc.attributes['CG_MessageInstName'].value
@@ -285,11 +299,14 @@ f"""\
 f"""\
 void {self.driver_name}::{message.name}::receive_handler(const can_word_t *data)
 {{
-  memcpy(&data_, data, sizeof({inst_name}_t));
-}}
+""")
+      
+      for signal in message.signals:
+        self.source_output_fp.write(f"""\
+    data->copy_into({signal.name.lower()});
+""")
+      self.source_output_fp.write(f"}};\n\n") 
         
-""")             
-
   def create_device_constructor(self):
     self.source_output_fp.write(
 f"""// =====================================================
@@ -335,7 +352,7 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""void {self.driver_name}::set_{signal.name.lower()}(const {self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} &value)
 {{
-  {inst_name}_.data_.{signal.name} = (value - {signal.offset}) / {signal.scale};
+  {inst_name}_.data_.{signal.name.lower()} = (value - {signal.offset}) / {signal.scale};
 }}
 
 """)
@@ -350,7 +367,7 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} {self.driver_name}::get_{signal.name.lower()}()
 {{
-  return ({inst_name}_.data_.{signal.name} * {signal.scale}) + {signal.offset};
+  return ({inst_name}_.{signal.name.lower()} * {signal.scale}) + {signal.offset};
 }}
 
 """)
