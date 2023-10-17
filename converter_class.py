@@ -44,11 +44,11 @@ class ConverterClass:
       self.receiver_signal_list = []
 
       for message in self.message_list:
-        if "FVT" in message.receivers:
+        if message.dbc.attributes['CG_RX_TX'].value == 0:
           self.receiver_message_list.append(message)
           for signal in message.signals:
             self.receiver_signal_list.append(signal)
-        elif "FVT" in message.senders:
+        elif message.dbc.attributes['CG_RX_TX'].value == 1:
           self.sender_message_list.append(message)
           for signal in message.signals:
             self.sender_signal_list.append(signal)
