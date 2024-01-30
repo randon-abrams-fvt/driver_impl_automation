@@ -1,6 +1,7 @@
 *.cpp
 *.dbc
 *.txt
+*.ini
 __pycache__/*
 inc/*
 src/*
