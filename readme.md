@@ -30,8 +30,12 @@
 
 - This signal attribute along with the signal byte order, bit length, and bit position will be used to assign a fixed endian type
 
-## Running Exe
+## Running the exe
 
 The exe is in the dist folder
 
 dbc_to_driver.exe `<path-to-dbc-file>`
+
+## Running the python script
+
+python dbc_to_driver.py `<path-to-dbc-file>`
