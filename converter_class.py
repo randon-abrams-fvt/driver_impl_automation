@@ -170,7 +170,7 @@ f"""\
         
         ~{message.name}();
 
-        virtual void receive_handler(const common_lib::can_data_t *data);
+        virtual void receive_handler(const common_lib::can_data_t *data) override;
       
       private:
         struct message_data_t
@@ -358,10 +358,17 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""void {self.driver_name}::set_{signal.name.lower()}(const {self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} &value)
 {{
-  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>((value - {signal.offset}) / {signal.scale});
-}}
-
 """)
+        if ((signal.offset == 0) and (signal.scale == 1)):
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value);")
+        elif ((signal.offset != 0) and (signal.scale == 1)):
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value - {signal.offset});")
+        elif ((signal.offset == 0) and (signal.scale != 1)):
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value / {signal.scale}f);")
+        else:
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>((value - {signal.offset}) / {signal.scale});")
+          
+        self.source_output_fp.write(f"\n}}\n\n")
 
   def source_write_getters(self):
     self.source_output_fp.write(
@@ -373,10 +380,18 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} {self.driver_name}::get_{signal.name.lower()}() const
 {{
-  return (static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()}) * {signal.scale}) + {signal.offset};
-}}
-
 """)
+        
+        if ((signal.offset == 0) and (signal.scale == 1)):
+          self.source_output_fp.write(f"  return static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()});")
+        elif ((signal.offset != 0) and (signal.scale == 1)):
+          self.source_output_fp.write(f"  return static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()}) + {signal.offset};")
+        elif ((signal.offset == 0) and (signal.scale != 1)):
+          self.source_output_fp.write(f"  return static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()}) * {signal.scale}f;")
+        else:
+          self.source_output_fp.write(f"  return (static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()}) * {signal.scale}f)) + {signal.offset};")
+          
+        self.source_output_fp.write(f"\n}}\n\n")
 
   def create_source_file(self):
     self.source_write_header()
