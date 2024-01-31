@@ -263,7 +263,7 @@ using namespace driver_lib;
 void {self.driver_name}::{message.name}::set_data()
 {{
 """)
-      self.source_output_fp.write(f"    set_frame_data(frame);\n}};\n\n")
+      self.source_output_fp.write(f"    data_.set_frame_data(frame);\n}};\n\n")
 
   def source_write_rx_constructors(self):
     # Add RX constructors
@@ -311,7 +311,7 @@ f"""\
 void {self.driver_name}::{message.name}::receive_handler(const can_data_t *data)
 {{
 """)
-      self.source_output_fp.write(f"    get_frame_data(data);\n}};\n\n") 
+      self.source_output_fp.write(f"    data_.get_frame_data(data);\n}};\n\n") 
         
   def create_device_constructor(self):
     self.source_output_fp.write(
@@ -358,7 +358,7 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""void {self.driver_name}::set_{signal.name.lower()}(const {self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} &value)
 {{
-  {inst_name}_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>((value - {signal.offset}) / {signal.scale});
+  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>((value - {signal.offset}) / {signal.scale});
 }}
 
 """)
@@ -373,7 +373,7 @@ f"""// =====================================================
         self.source_output_fp.write(
 f"""{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]} {self.driver_name}::get_{signal.name.lower()}() const
 {{
-  return (static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.{signal.name.lower()}) * {signal.scale}) + {signal.offset};
+  return (static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>({inst_name}_.data_.{signal.name.lower()}) * {signal.scale}) + {signal.offset};
 }}
 
 """)
