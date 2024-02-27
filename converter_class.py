@@ -360,13 +360,13 @@ f"""void {self.driver_name}::set_{signal.name.lower()}(const {self.var_enum_list
 {{
 """)
         if ((signal.offset == 0) and (signal.scale == 1)):
-          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value);")
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = value;")
         elif ((signal.offset != 0) and (signal.scale == 1)):
-          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value - ({signal.offset}));")
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = value - ({signal.offset});")
         elif ((signal.offset == 0) and (signal.scale != 1)):
-          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>(value / {signal.scale}f);")
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = value / {signal.scale}f;")
         else:
-          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = static_cast<{self.var_enum_list[signal.dbc.attributes['CG_VarType'].value]}>((value - ({signal.offset})) / {signal.scale});")
+          self.source_output_fp.write(f"  {inst_name}_.data_.{signal.name.lower()} = (value - ({signal.offset})) / {signal.scale};")
           
         self.source_output_fp.write(f"\n}}\n\n")
 
